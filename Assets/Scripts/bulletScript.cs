@@ -18,10 +18,11 @@ public class bulletScript : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Walls")
+        Destroy(gameObject);
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Walls")
         {
-           
             Destroy(gameObject);
+
         }
             
 

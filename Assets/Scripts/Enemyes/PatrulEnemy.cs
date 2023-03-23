@@ -8,6 +8,10 @@ public class PatrulEnemy : MonoBehaviour
     public Vector2[] doors;
     public float speed;
     public bool doormove;
+
+
+    public bool walk;
+    public int walkTime, walkMaxTime;
     
     void Start()
     {
@@ -23,68 +27,96 @@ public class PatrulEnemy : MonoBehaviour
     {
         Debug.Log(doormove);
 
-        if (doormove == true)
+        if(walk == true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, doors[doorNum], speed);
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, vect[vecNum], speed);
-        }
-
-        if (transform.position.y - vect[vecNum].y > 0.1f || transform.position.y - vect[vecNum].y < -0.1f)
-        {
-            Debug.Log(transform.position.y - vect[vecNum].y);
-          
-            doormove = true;
-           
-
-           
-        }
-        else /*if(transform.position.y % doors[doorNum].y < 0.05f && transform.position.y % doors[doorNum].y > -0.1f)*/
-        {
-            //Debug.Log("No");
-            //lastNum = vecNum;
-            doormove = false;
-            
-        }
-
-        if(Vector2.Distance(transform.position, vect[vecNum]) <= 0.1)
-        {
-            lastNum = vecNum;
-            vecNum = Random.Range(0, vect.Length);
-        }
-
-        if(Vector2.Distance(transform.position, doors[doorNum]) <= 0.1 && doormove == true)
-        {
-            switch (doorNum)
+            if (doormove == true)
             {
-                case 0:
-                    doorNum = 1;
-                  
-                    transform.position = doors[1];
-                   
+                transform.position = Vector2.MoveTowards(transform.position, doors[doorNum], speed);
+            }
+            else
+            {
+                transform.position = Vector2.MoveTowards(transform.position, vect[vecNum], speed);
+            }
 
-                    break;
+            if (transform.position.y - vect[vecNum].y > 0.1f || transform.position.y - vect[vecNum].y < -0.1f)
+            {
+                Debug.Log(transform.position.y - vect[vecNum].y);
 
-                case 1:
-                    doorNum = 2;
-                   
-                    transform.position = doors[2];
-                
+                doormove = true;
 
-                    break;
 
-                case 2:
 
-                    doorNum = 0;
-                 
-                    transform.position = doors[0];
-                    
-                    break;
+            }
+            else /*if(transform.position.y % doors[doorNum].y < 0.05f && transform.position.y % doors[doorNum].y > -0.1f)*/
+            {
+                //Debug.Log("No");
+                //lastNum = vecNum;
+                doormove = false;
+
+            }
+
+            if (Vector2.Distance(transform.position, vect[vecNum]) <= 0.1)
+            {
+                lastNum = vecNum;
+                vecNum = Random.Range(0, vect.Length);
+            }
+
+            if (Vector2.Distance(transform.position, doors[doorNum]) <= 0.1 && doormove == true)
+            {
+                switch (doorNum)
+                {
+                    case 0:
+                        doorNum = 1;
+
+                        transform.position = doors[1];
+
+
+                        break;
+
+                    case 1:
+                        doorNum = 2;
+
+                        transform.position = doors[2];
+
+
+                        break;
+
+                    case 2:
+
+                        doorNum = 0;
+
+                        transform.position = doors[0];
+
+                        break;
+                }
+            }
+
+
+        }
+
+
+        if(walk == false)
+        {
+            walkTime++;
+            if(walkTime >= walkMaxTime)
+            {
+                walkTime = 0;
+                walk = true;
             }
         }
-
-       
     }
+
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Dammage")
+        {
+            walk = false;
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+    }
+
+
 }
