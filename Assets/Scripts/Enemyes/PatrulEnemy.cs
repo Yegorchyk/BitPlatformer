@@ -12,12 +12,16 @@ public class PatrulEnemy : MonoBehaviour
 
     public bool walk;
     public int walkTime, walkMaxTime;
+
+    public GameObject Player;
+    public bool attack;
     
     void Start()
     {
         vecNum = Random.Range(0, vect.Length);
         lastNum = 4;
 
+        Player = GameObject.FindWithTag("Player");
 
 
     }
@@ -25,7 +29,8 @@ public class PatrulEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(doormove);
+        Debug.Log(transform.rotation);
+        WatchPlayer();
 
         if(walk == true)
         {
@@ -40,7 +45,6 @@ public class PatrulEnemy : MonoBehaviour
 
             if (transform.position.y - vect[vecNum].y > 0.1f || transform.position.y - vect[vecNum].y < -0.1f)
             {
-                Debug.Log(transform.position.y - vect[vecNum].y);
 
                 doormove = true;
 
@@ -101,11 +105,38 @@ public class PatrulEnemy : MonoBehaviour
             if(walkTime >= walkMaxTime)
             {
                 walkTime = 0;
-                walk = true;
+               // walk = true;
             }
         }
     }
 
+
+    public void WatchPlayer()       
+    {
+        if (attack == true)
+        {
+            Debug.LogError("Fuck");
+            GetComponent<SpriteRenderer>().color = Color.red;
+           transform.position =  Vector2.MoveTowards(transform.position, Player.transform.position, speed* 2);
+        }
+
+        if (Vector2.Distance(transform.position, Player.transform.position) <= 3)
+        {
+            if (Player.transform.position.x > transform.position.x && transform.rotation == new Quaternion(0, 0, 0, 1))
+            {
+              
+                walk = false;
+                attack = true;
+            }
+            else if(transform.rotation == new Quaternion(0, 0, 180, 1) && Player.transform.position.x < transform.position.x)
+            {
+                walk = false;
+                attack = true;
+            }
+        }
+
+      
+    }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {

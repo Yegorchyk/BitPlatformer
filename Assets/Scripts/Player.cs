@@ -113,7 +113,6 @@ public class Player : MonoBehaviour
             jumpTime = 0;
             transform.position = new Vector3(transform.position.x, jumpY + JumpTraectory.Evaluate(maxJimpTime), transform.position.z);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, -6.6f);
-            Debug.Log(GetComponent<Rigidbody2D>().velocity);
             if (GetComponent<Rigidbody2D>().velocity.y < -6.6)
             {
                 
