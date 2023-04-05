@@ -2065,7 +2065,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.9694996
+  orthographic size: 11.738025
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6331,7 +6331,7 @@ MonoBehaviour:
   - {x: 126.18, y: -7.34}
   speed: 0.05
   doormove: 0
-  walk: 0
+  walk: 1
   walkTime: 0
   walkMaxTime: 300
   Player: {fileID: 0}

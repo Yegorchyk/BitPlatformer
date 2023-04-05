@@ -105,7 +105,7 @@ public class PatrulEnemy : MonoBehaviour
             if(walkTime >= walkMaxTime)
             {
                 walkTime = 0;
-               // walk = true;
+                walk = true;
             }
         }
     }
@@ -117,7 +117,7 @@ public class PatrulEnemy : MonoBehaviour
         {
             Debug.LogError("Fuck");
             GetComponent<SpriteRenderer>().color = Color.red;
-           transform.position =  Vector2.MoveTowards(transform.position, Player.transform.position, speed* 2);
+           transform.position =  Vector2.MoveTowards(transform.position, Player.transform.position, speed* 1.2f);
         }
 
         if (Vector2.Distance(transform.position, Player.transform.position) <= 3)
